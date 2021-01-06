@@ -52,6 +52,9 @@ python:
 cache: pip
 services:
   - docker
+before_install:
+  - pip install flake8 flake8-print
+  - flake8
 install:
   - docker run -e "TZ=Europe/Moscow" -d -p 127.0.0.1:9000:9000 --name test-clickhouse-server --ulimit nofile=262144:262144 yandex/clickhouse-server:$VERSION
   - docker run -d --entrypoint "/bin/sh" --name test-clickhouse-client --link test-clickhouse-server:clickhouse-server yandex/clickhouse-client:$VERSION -c 'while :; do sleep 1; done'
@@ -64,10 +67,10 @@ install:
   # Make host think that clickhouse-server is localhost
   - echo '127.0.0.1 clickhouse-server' | sudo tee /etc/hosts > /dev/null
   - pip install --upgrade pip setuptools
-  - pip install flake8 flake8-print coveralls cython 'cryptography<3.3'
+  - pip install coveralls cython 'cryptography<3.3'
 script:
   - if [ -z ${USE_NUMPY+x} ]; then pip uninstall -y numpy pandas; fi
-  - flake8 && coverage run --source=clickhouse_driver setup.py test
+  - coverage run --source=clickhouse_driver setup.py test
 after_success:
   coveralls
 
