@@ -1,42 +1,45 @@
 env:
-  - VERSION=20.10.2.20
-  - VERSION=20.9.3.45
-  - VERSION=20.8.4.11
-  - VERSION=20.7.4.11
-  - VERSION=20.6.8.5
-  - VERSION=20.5.5.74
-  - VERSION=20.4.9.110
-  - VERSION=20.3.20.6
-  - VERSION=20.3.20.6 USE_NUMPY=1
-  - VERSION=19.16.17.80
-  - VERSION=19.15.3.6
-  - VERSION=19.9.2.4   # allow_suspicious_low_cardinality_types
-  - VERSION=19.8.3.8   # SimpleAggregateFunction
-  - VERSION=19.3.3
-  - VERSION=18.12.17
-  - VERSION=18.10.3
-  - VERSION=18.6.0
-  - VERSION=18.5.1
-  - VERSION=18.4.0
-  - VERSION=18.1.0
-#  - VERSION=1.1.54394
-#  - VERSION=1.1.54390
-#  - VERSION=1.1.54388
-#  - VERSION=1.1.54385
-#  - VERSION=1.1.54383
-#  - VERSION=1.1.54381
-#  - VERSION=1.1.54380
-#  - VERSION=1.1.54378 client's image miss tzdata package: https://github.com/yandex/ClickHouse/commit/1bf49fe8446c7dea95beaef2b131e6c6708b0b62#diff-cc737435a5ba74620a889b7718f39a80
-#  - VERSION=1.1.54343
-#  - VERSION=1.1.54342
-##  - VERSION=1.1.54337 Broken network
-#  - VERSION=1.1.54327
-#  - VERSION=1.1.54310
-#  - VERSION=1.1.54304
-#  - VERSION=1.1.54292
-#  - VERSION=1.1.54289
-#  - VERSION=1.1.54284
-#  - VERSION=1.1.54282
+  global:
+    - CYTHON_TRACE=1
+  jobs:
+    - VERSION=20.10.2.20
+    - VERSION=20.9.3.45
+    - VERSION=20.8.4.11
+    - VERSION=20.7.4.11
+    - VERSION=20.6.8.5
+    - VERSION=20.5.5.74
+    - VERSION=20.4.9.110
+    - VERSION=20.3.20.6
+    - VERSION=20.3.20.6 USE_NUMPY=1
+    - VERSION=19.16.17.80
+    - VERSION=19.15.3.6
+    - VERSION=19.9.2.4   # allow_suspicious_low_cardinality_types
+    - VERSION=19.8.3.8   # SimpleAggregateFunction
+    - VERSION=19.3.3
+    - VERSION=18.12.17
+    - VERSION=18.10.3
+    - VERSION=18.6.0
+    - VERSION=18.5.1
+    - VERSION=18.4.0
+    - VERSION=18.1.0
+#    - VERSION=1.1.54394
+#    - VERSION=1.1.54390
+#    - VERSION=1.1.54388
+#    - VERSION=1.1.54385
+#    - VERSION=1.1.54383
+#    - VERSION=1.1.54381
+#    - VERSION=1.1.54380
+#    - VERSION=1.1.54378 client's image miss tzdata package: https://github.com/yandex/ClickHouse/commit/1bf49fe8446c7dea95beaef2b131e6c6708b0b62#diff-cc737435a5ba74620a889b7718f39a80
+#    - VERSION=1.1.54343
+#    - VERSION=1.1.54342
+#  #  - VERSION=1.1.54337 Broken network
+#    - VERSION=1.1.54327
+#    - VERSION=1.1.54310
+#    - VERSION=1.1.54304
+#    - VERSION=1.1.54292
+#    - VERSION=1.1.54289
+#    - VERSION=1.1.54284
+#    - VERSION=1.1.54282
 
 language: python
 python:
@@ -70,7 +73,8 @@ install:
   - pip install coveralls cython 'cryptography<3.3'
 script:
   - if [ -z ${USE_NUMPY+x} ]; then pip uninstall -y numpy pandas; fi
-  - coverage run --source=clickhouse_driver setup.py test
+  - python setup.py build_ext --define CYTHON_TRACE
+  - coverage run setup.py test
 after_success:
   coveralls
 
