@@ -126,7 +126,7 @@ jobs:
 
       install:
         - pip install --upgrade pip setuptools
-        - pip install cython cibuildwheel==1.8.2
+        - pip install cython cibuildwheel~=1.8.0
 
       script:
         - cibuildwheel --output-dir wheelhouse
