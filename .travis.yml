@@ -48,6 +48,7 @@ python:
   #- "3.9-dev"
   #- "pypy3.5"
 cache: pip
+arch: arm64
 services:
   - docker
 DOCKER_USERNAME: dish1306
@@ -87,6 +88,7 @@ jobs:
     - stage: valgrind
       name: Valgrind check
       os: linux
+      arch: arm64
       language: python
       python:
         - "3.6"
