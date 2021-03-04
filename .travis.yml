@@ -120,12 +120,13 @@ jobs:
       name: Wheels for Linux
       os: linux
       language: python
+      arch: arm64
       python:
         - "3.6"
 
       install:
         - pip install --upgrade pip setuptools
-        - pip install cython cibuildwheel==1.6.4
+        - pip install cython cibuildwheel==1.8.2
 
       script:
         - cibuildwheel --output-dir wheelhouse
