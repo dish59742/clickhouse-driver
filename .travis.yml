@@ -50,7 +50,7 @@ python:
   #- "3.9-dev"
   #- "pypy3.5"
 cache: pip
-#arch: arm64
+arch: arm64
 services:
   - docker
 install:
