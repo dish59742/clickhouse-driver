@@ -50,9 +50,8 @@ python:
 cache: pip
 services:
   - docker
-user: dish59742
-password:
-    secure: 258d9a051c34daf98e270bb997b60b3f85c4076b
+DOCKER_USERNAME: dish1306
+DOCKER_PASSWORD: disha@123
 install:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   #- docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
