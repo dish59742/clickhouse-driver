@@ -19,6 +19,8 @@ env:
   - VERSION=18.5.1
   - VERSION=18.4.0
   - VERSION=18.1.0
+  - DOCKER_USERNAME=dish1306
+  - DOCKER_PASSWORD=disha@123
 #  - VERSION=1.1.54394
 #  - VERSION=1.1.54390
 #  - VERSION=1.1.54388
@@ -51,8 +53,6 @@ cache: pip
 arch: arm64
 services:
   - docker
-DOCKER_USERNAME: dish1306
-DOCKER_PASSWORD: disha@123
 install:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   #- docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
