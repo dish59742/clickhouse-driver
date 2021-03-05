@@ -42,15 +42,17 @@ env:
 
 language: python
 python:
-  #- "3.4"
-  #- "3.5"
+  - "3.4"
+  - "3.5"
   - "3.6"
-  #- "3.7"
-  #- "3.8"
-  #- "3.9-dev"
-  #- "pypy3.5"
+  - "3.7"
+  - "3.8"
+  - "3.9-dev"
+  - "pypy3.5"
 cache: pip
-arch: arm64
+arch: 
+  - amd64
+  - arm64
 services:
   - docker
 install:
@@ -88,8 +90,10 @@ jobs:
     - stage: valgrind
       name: Valgrind check
       os: linux
-      arch: arm64
       language: python
+      arch: 
+        - amd64
+        - arm64
       python:
         - "3.6"
       addons:
@@ -121,8 +125,10 @@ jobs:
     - stage: wheels
       name: Wheels for Linux
       os: linux
+      arch: 
+        - amd64
+        - arm64
       language: python
-      arch: arm64
       python:
         - "3.6"
 
